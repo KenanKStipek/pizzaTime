@@ -1,0 +1,10 @@
+model Order {
+  id                Int     @id @default(autoincrement())
+  customerName      String
+  customerPhone     String
+  customerAddress   String
+  pizzaType         String
+  size              String
+  toppings          String[]?
+  status            String
+}
