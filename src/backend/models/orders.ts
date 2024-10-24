@@ -12,7 +12,7 @@ export type OrderType = {
   customerAddress: string;
   pizzaType: string;
   size: string;
-  toppings?: string[];
+  toppings: string[];
   status: string
 }
 
@@ -21,7 +21,7 @@ export type OrderParams = {
 }
 
 export const getOrders = (
-  params: OrderParams
+  params?: OrderParams
 ) => {
   return prisma.orders.getOrders
 }

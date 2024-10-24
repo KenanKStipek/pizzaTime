@@ -5,6 +5,6 @@ model Order {
   customerAddress   String
   pizzaType         String
   size              String
-  toppings          String[]?
+  toppings          String[]
   status            String
 }
