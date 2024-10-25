@@ -66,7 +66,7 @@ export const updateOrder = async (
 
   // encrypt sensitive customer data
   const originalOrder = await getOrders({ id: params.id })
-  const { id, ...encryptedOrderInfo } = {
+  const encryptedOrderInfo = {
     ...originalOrder,
     ...encryptOrder(updateOrder),
   }[0]
