@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "api": "tsx src/api/main",
-    "build": "tsc",
+    "build": "tsc --output dist",
     "test": "echo \"Error: no test specified\" && exit 1",
     "migrate": "deno ./migrations/migrate.ts"
   },
