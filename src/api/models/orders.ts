@@ -97,31 +97,31 @@ export const deleteOrder = async (
   const order = await prisma.order.delete({
      where: { id: orderId }
   })
-  return order;
+  return !!order;
 }
 
 //////////////////////
 // Helper functions //
 //////////////////////
 
-const encrypt = (data) => {
+export const encrypt = (data) => {
   const key = process.env.ENCRYPTION_KEY;
   return crypto.AES.encrypt(data, key).toString();
 }
 
-const decrypt = (data) => {
+export const decrypt = (data) => {
   const key = process.env.ENCRYPTION_KEY;
   const bytes = crypto.AES.decrypt(data, key);
   return bytes.toString(crypto.enc.Utf8);
 }
 
-const encryptOrder = (order) => ({
+export const encryptOrder = (order) => ({
   ...(order.customerName && { customerName: encrypt(order.customerName) }),
   ...(order.customerAddress && { customerAddress: encrypt(order.customerAddress) }),
   ...(order.customerPhone && { customerPhone: encrypt(order.customerPhone) }),
 })
 
-const decryptOrder = (order) => ({
+export const decryptOrder = (order) => ({
   ...(order.customerName && { customerName: decrypt(order.customerName) }),
   ...(order.customerAddress && { customerAddress: decrypt(order.customerAddress) }),
   ...(order.customerPhone && { customerPhone: decrypt(order.customerPhone) }),
@@ -130,7 +130,7 @@ const decryptOrder = (order) => ({
 // I would normally setup a more sophisticated 
 // validation process, but for this use case
 // I decided to keep it simple.
-const validateOrder = (order) => {
+export const validateOrder = (order) => {
   let errors = ''
   errors += order.pizzaType && 
     !PIZZA_TYPES.includes(order.pizzaType) && 
