@@ -13,6 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteOrder = exports.updateOrder = exports.createOrder = exports.getOrders = void 0;
+require("dotenv/config");
 const postgres_1 = require("../../services/postgres");
 const crypto_js_1 = __importDefault(require("crypto-js"));
 const constants_1 = require("../../constants");
