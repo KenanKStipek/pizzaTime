@@ -29,12 +29,12 @@ export const getOrders = async (
   if(params?.id) {
     const orderId: number = +params.id
     const order = await prisma.order.findFirst({ where: { id: orderId }})
-    const dencryptedOrderInfo = decryptOrder(order)
-    return dencryptedOrderInfo
+    const decryptedOrderInfo = decryptOrder(order)
+    return decryptedOrderInfo
   } else {
     const orders = await prisma.order.findMany()
-    const dencryptedOrdersInfo = orders.map((order) => decryptOrder(order))
-    return dencryptedOrdersInfo
+    const decryptedOrdersInfo = orders.map((order) => decryptOrder(order))
+    return decryptedOrdersInfo
   }
 }
 
@@ -47,7 +47,6 @@ export const createOrder = (
 
   // encrypt sensitive customer data
   const encryptedOrderInfo = encryptOrder(orderInfo)
-  
   // Store order
   const order = prisma.order.create({
     data: encryptedOrderInfo as PrimsaType.OrderCreateInput
@@ -89,29 +88,29 @@ export const deleteOrder = async (
 // Helper functions //
 //////////////////////
 
-const encryptCustomerData = (data) => {
+const encrypt = (data) => {
   const key = process.env.ENCRYPTION_KEY;
   return crypto.AES.encrypt(data, key).toString();
 }
 
-const decryptCustomerData = (data) => {
+const decrypt = (data) => {
   const key = process.env.ENCRYPTION_KEY;
   const bytes = crypto.AES.decrypt(data, key);
-  return bytes.toString(crypto.enc.Utf8); 
+  return bytes.toString(crypto.enc.Utf8);
 }
 
-const encryptOrder = order => ({
+const encryptOrder = (order) => ({
   ...order,
-  customerName: encryptCustomerData(order.customerName),
-  customerAddress: encryptCustomerData(order.customerAddress),
-  customerPhone: encryptCustomerData(order.customerPhone),
+  customerName: encrypt(order.customerName),
+  customerAddress: encrypt(order.customerAddress),
+  customerPhone: encrypt(order.customerPhone),
 })
 
-const decryptOrder = order => ({
+const decryptOrder = (order) => ({
   ...order,
-  customerName: decryptCustomerData(order.customerName),
-  customerAddress: decryptCustomerData(order.customerAddress),
-  customerPhone: decryptCustomerData(order.customerPhone),
+  customerName: decrypt(order.customerName),
+  customerAddress: decrypt(order.customerAddress),
+  customerPhone: decrypt(order.customerPhone),
 })
 
 // I would normally setup a more sophisticated 
