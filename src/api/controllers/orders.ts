@@ -35,7 +35,7 @@ app.get(
 
 app.get("/", 
   (_, res) => {
-  res.sendStatus("Welcome to the Pizza Time API!");
+  res.send("Welcome to the Pizza Time API!");
 });
 
 app.get(
