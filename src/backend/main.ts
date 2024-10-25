@@ -1,3 +1,3 @@
-import { app } from './controllers/orders.ts'
+import app from './controllers/orders'
 
 app.listen(8000);
