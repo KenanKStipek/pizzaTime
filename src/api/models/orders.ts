@@ -30,11 +30,17 @@ export const getOrders = async (
   if(params?.id) {
     const orderId: number = +params.id
     const order = await prisma.order.findFirst({ where: { id: orderId }})
-    const decryptedOrderInfo = decryptOrder(order)
+    const decryptedOrderInfo = {
+      ...order,
+      ...decryptOrder(order)
+    }
     return decryptedOrderInfo
   } else {
     const orders = await prisma.order.findMany()
-    const decryptedOrdersInfo = orders.map((order) => decryptOrder(order))
+    const decryptedOrdersInfo = orders.map((order) => ({
+      ...order,
+      ...decryptOrder(order)
+    }))
     return decryptedOrdersInfo
   }
 }
@@ -47,7 +53,10 @@ export const createOrder = (
   if(invalid) return invalid
 
   // encrypt sensitive customer data
-  const encryptedOrderInfo = encryptOrder(orderInfo)
+  const encryptedOrderInfo = {
+    ...orderInfo,
+    ...encryptOrder(orderInfo)
+  }
 
   // Store order
   const order = prisma.order.create({
@@ -65,11 +74,12 @@ export const updateOrder = async (
   if(invalid) return invalid
 
   // encrypt sensitive customer data
-  const originalOrder = await getOrders({ id: params.id })
+  const originalOrder = await getOrders({ id: params.id })[0]
   const encryptedOrderInfo = {
     ...originalOrder,
+    ...updatedOrder,
     ...encryptOrder(updatedOrder),
-  }[0]
+  };
 
   // Store order
   const orderId: number = +params
@@ -106,17 +116,15 @@ const decrypt = (data) => {
 }
 
 const encryptOrder = (order) => ({
-  ...order,
-  customerName: encrypt(order.customerName),
-  customerAddress: encrypt(order.customerAddress),
-  customerPhone: encrypt(order.customerPhone),
+  ...(order.customerName && { customerName: encrypt(order.customerName) }),
+  ...(order.customerAddress && { customerAddress: encrypt(order.customerAddress) }),
+  ...(order.customerPhone && { customerPhone: encrypt(order.customerPhone) }),
 })
 
 const decryptOrder = (order) => ({
-  ...order,
-  customerName: decrypt(order.customerName),
-  customerAddress: decrypt(order.customerAddress),
-  customerPhone: decrypt(order.customerPhone),
+  ...(order.customerName && { customerName: decrypt(order.customerName) }),
+  ...(order.customerAddress && { customerAddress: decrypt(order.customerAddress) }),
+  ...(order.customerPhone && { customerPhone: decrypt(order.customerPhone) }),
 })
 
 // I would normally setup a more sophisticated 

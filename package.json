@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "api": "tsx src/api/main",
+    "api": "tsx src/api/index",
     "build": "npx prisma generate --schema src/services/prisma/schema.prisma",
     "test": "echo \"Error: no test specified\" && exit 1",
     "migrate": "deno ./migrations/migrate.ts",
