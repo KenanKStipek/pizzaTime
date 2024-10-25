@@ -24,7 +24,7 @@ const tokenConfig = {
 
 // API Routes
 app.get(
-  "/protected",
+  "/api/protected",
   expressjwt(tokenConfig),
   function (req, res) {
     req.auth
@@ -33,13 +33,13 @@ app.get(
   }
 );
 
-app.get("/", 
+app.get("/api/", 
   (_, res) => {
   res.send("Welcome to the Pizza Time API!");
 });
 
 app.get(
-  "/pizza/", 
+  "/api/pizza/", 
   expressjwt(tokenConfig),
   async (_, res) => {
     const orders = await getOrders();
@@ -48,7 +48,7 @@ app.get(
 );
 
 app.get(
-  "/pizza/:id", 
+  "/api/pizza/:id", 
   expressjwt(tokenConfig),
   async (req, res) => {
     const { id } = req.params;
@@ -57,7 +57,7 @@ app.get(
 });
 
 app.post(
-  "/pizza", 
+  "/api/pizza", 
   expressjwt(tokenConfig),
   async (req, res) => {
     const { body } = req
@@ -67,7 +67,7 @@ app.post(
 );
 
 app.put(
-  "/pizza/:id", 
+  "/api/pizza/:id", 
   expressjwt(tokenConfig),
   async (req, res) => {
     const { id } = req.params;
@@ -78,7 +78,7 @@ app.put(
 );
 
 app.delete(
-  "/pizza/:id", 
+  "/api/pizza/:id", 
   expressjwt(tokenConfig),
   async (req, res) => {
     const { id } = req.params;
