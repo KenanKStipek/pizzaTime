@@ -48,6 +48,7 @@ export const createOrder = (
 
   // encrypt sensitive customer data
   const encryptedOrderInfo = encryptOrder(orderInfo)
+
   // Store order
   const order = prisma.order.create({
     data: encryptedOrderInfo
@@ -56,7 +57,7 @@ export const createOrder = (
 }
 
 export const updateOrder = async (
-  id: OrderParams,
+  params: OrderParams,
   updatedOrder: any
 ) => {
   // validate data
@@ -64,10 +65,14 @@ export const updateOrder = async (
   if(invalid) return invalid
 
   // encrypt sensitive customer data
-  const encryptedOrderInfo = encryptOrder(updateOrder)
+  const originalOrder = await getOrders({ id: params.id })
+  const encryptedOrderInfo = {
+    ...originalOrder,
+    ...encryptOrder(updateOrder),
+  }
 
   // Store order
-  const orderId: number = +id
+  const orderId: number = +params.id
   const order = await prisma.order.update({
      where: { id: orderId }, 
      data: encryptedOrderInfo 

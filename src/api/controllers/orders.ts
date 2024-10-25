@@ -22,17 +22,6 @@ const tokenConfig = {
   algorithms: ["HS256"] as Algorithm
 }
 
-// API Routes
-app.get(
-  "/api/protected",
-  expressjwt(tokenConfig),
-  function (req, res) {
-    req.auth
-      ? res.sendStatus('You are authorized')
-      : res.sendStatus(401)
-  }
-);
-
 app.get("/api/", 
   (_, res) => {
   res.send("Welcome to the Pizza Time API!");
