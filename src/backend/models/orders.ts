@@ -29,11 +29,11 @@ export const getOrders = async (
   if(params?.id) {
     const orderId: number = +params.id
     const order = await prisma.order.findFirst({ where: { id: orderId }})
-    const dencryptedOrderInfo = decryptCustomerData(order)
+    const dencryptedOrderInfo = decryptOrder(order)
     return dencryptedOrderInfo
   } else {
     const orders = await prisma.order.findMany()
-    const dencryptedOrdersInfo = orders.map((order) => decryptCustomerData(order))
+    const dencryptedOrdersInfo = orders.map((order) => decryptOrder(order))
     return dencryptedOrdersInfo
   }
 }
@@ -46,7 +46,7 @@ export const createOrder = (
   if(invalid) return invalid
 
   // encrypt sensitive customer data
-  const encryptedOrderInfo = encryptCustomerData(orderInfo)
+  const encryptedOrderInfo = encryptOrder(orderInfo)
   
   // Store order
   const order = prisma.order.create({
@@ -64,7 +64,7 @@ export const updateOrder = async (
   if(invalid) return invalid
 
   // encrypt sensitive customer data
-  const encryptedOrderInfo = encryptCustomerData(updateOrder)
+  const encryptedOrderInfo = encryptOrder(updateOrder)
 
   // Store order
   const orderId: number = +id
