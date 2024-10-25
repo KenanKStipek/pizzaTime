@@ -72,7 +72,7 @@ export const updateOrder = async (
   }[0]
 
   // Store order
-  const orderId: number = +params.id
+  const orderId: number = +params
   const order = await prisma.order.update({
      where: { id: orderId }, 
      data: encryptedOrderInfo
