@@ -55,10 +55,10 @@ This project is developed as a part of the Senior Backend Developer Work Sample 
 ### Installation Steps
 
 1. **Clone the Repository**
-   ```bash
-   git clone https://github.com/yourusername/pizzatime.git
-   cd pizzatime
-
+```bash
+git clone https://github.com/yourusername/pizzatime.git
+cd pizzatime
+```
 
 2. **Install dependencies**
 ```bash
@@ -101,13 +101,19 @@ npm run test
 ### Design Decisions and Assumptions
 
 Pizza Order Management: Implemented RESTful API endpoints to fulfill all CRUD operations as per requirements.
+
 Software Design: Followed an MVC pattern, leveraging “fat” models and “skinny” controllers.
+
 Data Validation: Middleware validates incoming data, ensuring pizza sizes and toppings are valid and preventing duplicate orders.
+
 Data Persistence: Chose PostgreSQL for reliable data storage and Prisma ORM for efficient database interactions.
+
 Security:
-    Implemented JWT authentication to secure API endpoints.
-    Used crypto-js to encrypt sensitive customer data like phone numbers and addresses.
+- Implemented JWT authentication to secure API endpoints.
+- Used crypto-js to encrypt sensitive customer data like phone numbers and addresses.
+
 Testing: Utilized Jest for unit and integration tests covering core functionalities like creating, updating, and listing orders.
+
 Deployment: Deployed on Vercel for ease of access and scalability.
 
 ### Scalability Considerations
@@ -115,6 +121,9 @@ Deployment: Deployed on Vercel for ease of access and scalability.
 For a fully scalable system, the following improvements could be implemented:
 
 Pagination: Implement paginated endpoints for collections.
+
 User Authentication: Add a user management system to better support roles and permissions.
+
 Extended Testing: Include integration tests that validate end-to-end interactions.
+
 Controller and Route Separation: Separate routing from controller logic for modularity, scalability, and maintainability.
