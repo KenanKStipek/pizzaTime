@@ -1,6 +1,6 @@
 import "dotenv/config";
 
-import { prisma } from '../../services/postgres'
+import { prisma } from '../../services/prisma'
 import crypto from "crypto-js";
 
 import {
