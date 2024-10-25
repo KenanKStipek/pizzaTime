@@ -1,154 +1,120 @@
-Pizza Time, Your favorite and most dependable pizza ordering system ever created!
-
-Tech stack
-- Typescript with Deno 2
-- ExpressJS for the API framework
-- Postgres for the database
-- Prisma for an ORM
-- AuthJS for authentication
-- Environmental variable and ? for customer data encryption
-- Create React App SPA for client application
-- DaisyUI and AceternityUI for a frontend component libraries
-- Deno 2 testing tools for tests
-- Vercel for hosting
-
-Pizza Time
+# Pizza Time
 
 Your favorite and most dependable pizza ordering system ever created!
-Table of Contents
 
-    Introduction
-    Tech Stack
-    Features
-    Setup and Installation
-    Deployment Instructions
-    Running Tests
-    Design Decisions and Assumptions
+## Table of Contents
 
-Introduction
+- [Introduction](#introduction)
+- [Features](#features)
+- [Tech Stack](#tech-stack)
+- [Setup and Installation](#setup-and-installation)
+  - [Prerequisites](#prerequisites)
+  - [Installation Steps](#installation-steps)
+- [Deployment Instructions](#deployment-instructions)
+- [Running Tests](#running-tests)
+- [Design Decisions and Assumptions](#design-decisions-and-assumptions)
+- [Scalability Considerations](#scalability-considerations)
+
+## Introduction
 
 Pizza Time is a comprehensive pizza ordering and management system designed to streamline the process of handling customer orders for pizzerias. It provides an efficient way to view, update, and manage pizza orders, enhancing the overall customer and staff experience.
-Tech Stack
 
-    TypeScript with Deno 2
-    ExpressJS for the API framework
-    PostgreSQL for the database
-    Prisma as the ORM
-    AuthJS for authentication
-    Environment Variables and encryption for customer data security
-    Create React App SPA for the client application
-    DaisyUI and AceternityUI for frontend component libraries
-    Deno 2 Testing Tools for tests
-    Vercel for hosting
+This project is developed as a part of the Senior Backend Developer Work Sample to demonstrate the ability to build and deploy scalable, maintainable backend systems, focusing on real-world problem-solving.
 
-Features
+## Features
 
-    Pizza Order Management API: RESTful endpoints to create, read, update, and delete pizza orders.
-    Secure Authentication: JWT authentication to secure API endpoints.
-    Data Validation: Ensures valid pizza sizes and prevents duplicate orders.
-    Data Persistence: Orders and customer information are stored in a PostgreSQL database.
-    Data Encryption: Sensitive customer data is encrypted for security.
-    Automated Testing: Core functionalities are tested using Deno 2 testing tools.
+- **Pizza Order Management API**: RESTful endpoints to create, read, update, and delete pizza orders.
+  - **List Orders**: View all pizza orders with details like pizza type, toppings, and status.
+  - **Add Order**: Create a new order with customer information and pizza details.
+  - **Update Order**: Modify an existing order's status or pizza details.
+  - **Delete Order**: Remove an order if the customer cancels it.
+- **Data Validation**: Ensures valid pizza sizes and prevents duplicate orders.
+- **Data Persistence**: Orders and customer information are stored in a PostgreSQL database.
+- **Security**: Implements JWT authentication and encrypts sensitive customer data.
+- **Automated Testing**: Core functionalities are tested using Jest testing tools.
 
-Setup and Installation
-Prerequisites
+## Tech Stack
 
-    Node.js and npm installed
-    Deno 2 installed
-    PostgreSQL installed and running
-    Vercel CLI installed (for deployment)
+- **TypeScript**: For type-safe JavaScript development.
+- **ExpressJS**: As the web application framework.
+- **PostgreSQL**: For the relational database.
+- **Prisma**: As the ORM (Object-Relational Mapping) tool.
+- **JWT**: For secure authentication and authorization.
+- **Crypto-JS**: For encrypting sensitive data.
+- **Jest**: For running unit and integration tests.
+- **Vercel**: For hosting the application.
 
-Installation Steps
+## Setup and Installation
 
-    Clone the Repository
+### Prerequisites
 
-    bash
+- **Node.js** and **npm** installed
+- **PostgreSQL** installed and running
+- **Vercel CLI** installed (for deployment)
 
-git clone https://github.com/yourusername/pizzatime.git
-cd pizzatime
+### Installation Steps
 
-Install Dependencies
+1. **Clone the Repository**
+   ```bash
+   git clone https://github.com/yourusername/pizzatime.git
+   cd pizzatime
 
-bash
 
+2. **Install dependencies**
+```bash
 npm install
+```
 
-Configure Environment Variables
+3. **Configure Environment Variables**
 
-Create a .env file in the root directory and add the necessary environment variables:
+```bash
+SHARED_SECRET=""
+ENCRYPTION_KEY=""
+POSTGRES_URL=""
+POSTGRES_PRISMA_URL=""
+POSTGRES_URL_NO_SSL=""
+POSTGRES_URL_NON_POOLING=""
+POSTGRES_USER=""
+POSTGRES_HOST=""
+POSTGRES_PASSWORD=""
+POSTGRES_DATABASE=""
+ENV=""
+```
 
-env
+4. **Run Database Migrations**
+```bash
+npx prisma migrate dev --name init --schema ./src/services/prisma/schema.prisma
+```
 
-DATABASE_URL=your_postgres_database_url
-JWT_SECRET=your_jwt_secret_key
+5. **Start the Application**
+```bash
+npm run api
+```
 
-Run Database Migrations
-
-bash
-
-npm run migrate
-
-Start the Application
-
-bash
-
-    npm start
-
-    The application should now be running at http://localhost:3000.
-
-Deployment Instructions
-
-To deploy the application on Vercel:
-
-    Fork the Repository
-
-    Fork the repository to your own GitHub account.
-
-    Login to Vercel
-
-    bash
-
-vercel login
-
-Initialize Vercel Project
-
-bash
-
-vercel init
-
-Set Environment Variables on Vercel
-
-In your Vercel dashboard, navigate to your project settings and add the same environment variables as in your .env file.
-
-Deploy
-
-bash
-
-    vercel --prod
-
-    Your application should now be live on Vercel.
-
-Running Tests
+### Running Tests
 
 To run the automated tests:
+```bash
+npm run test
+```
 
-bash
+### Design Decisions and Assumptions
 
-npm test
+Pizza Order Management: Implemented RESTful API endpoints to fulfill all CRUD operations as per requirements.
+Software Design: Followed an MVC pattern, leveraging “fat” models and “skinny” controllers.
+Data Validation: Middleware validates incoming data, ensuring pizza sizes and toppings are valid and preventing duplicate orders.
+Data Persistence: Chose PostgreSQL for reliable data storage and Prisma ORM for efficient database interactions.
+Security:
+    Implemented JWT authentication to secure API endpoints.
+    Used crypto-js to encrypt sensitive customer data like phone numbers and addresses.
+Testing: Utilized Jest for unit and integration tests covering core functionalities like creating, updating, and listing orders.
+Deployment: Deployed on Vercel for ease of access and scalability.
 
-This command will execute all tests located in the tests directory using Deno 2 testing tools.
-Design Decisions and Assumptions
+### Scalability Considerations
 
-    Choice of Tech Stack: Leveraged TypeScript with Deno 2 for improved performance and security. ExpressJS was used for its simplicity and widespread community support.
-    Database Selection: Chose PostgreSQL for its reliability and compatibility with Prisma ORM.
-    Security Measures: Implemented JWT authentication and encrypted sensitive customer data to adhere to industry-standard security practices.
-    Data Validation: Assumed that valid pizza sizes and toppings are predefined and validated against.
-    Duplicate Orders: Prevented by checking for existing orders with the same customer information and pizza details.
-    Deployment: Used Vercel for its ease of deployment and scalability.
+For a fully scalable system, the following improvements could be implemented:
 
-Assumptions Made During Development
-
-    The application is intended for use by a single pizzeria manager.
-    All orders are initiated and managed through the provided API endpoints.
-    Customers provide necessary contact information for order processing.
-    Cancellation of orders is initiated by the customer and processed by the manager.
+Pagination: Implement paginated endpoints for collections.
+User Authentication: Add a user management system to better support roles and permissions.
+Extended Testing: Include integration tests that validate end-to-end interactions.
+Controller and Route Separation: Separate routing from controller logic for modularity, scalability, and maintainability.
