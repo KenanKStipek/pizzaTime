@@ -39,7 +39,7 @@ export const getOrders = async (
 }
 
 export const createOrder = (
-  orderInfo: PrimsaType.OrderCreateInput
+  orderInfo: any
 ) => {
   // validate data
   const invalid = validateOrder(orderInfo)
@@ -49,14 +49,14 @@ export const createOrder = (
   const encryptedOrderInfo = encryptOrder(orderInfo)
   // Store order
   const order = prisma.order.create({
-    data: encryptedOrderInfo as PrimsaType.OrderCreateInput
+    data: encryptedOrderInfo
   })
   return order
 }
 
 export const updateOrder = async (
   id: OrderParams,
-  updatedOrder: PrimsaType.OrderUpdateInput
+  updatedOrder: any
 ) => {
   // validate data
   const invalid = validateOrder(updatedOrder)
