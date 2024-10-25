@@ -75,7 +75,7 @@ export const updateOrder = async (
   const orderId: number = +params.id
   const order = await prisma.order.update({
      where: { id: orderId }, 
-     data: encryptedOrderInfo 
+     data: encryptedOrderInfo[0]
   })
   return order;
 }
