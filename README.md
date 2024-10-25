@@ -99,7 +99,6 @@ npm run test
 ```
 
 ## Design Decisions and Assumptions
----
 
 Pizza Order Management: Implemented RESTful API endpoints to fulfill all CRUD operations as per requirements.
 
@@ -118,7 +117,6 @@ Testing: Utilized Jest for unit and integration tests covering core functionalit
 Deployment: Deployed on Vercel for ease of access and scalability.
 
 ## Scalability Considerations
----
 
 For a fully scalable system, the following improvements could be implemented:
 
