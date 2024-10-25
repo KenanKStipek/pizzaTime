@@ -1,4 +1,5 @@
-import { Prisma as PrimsaType } from '@prisma/client'
+import "dotenv/config";
+
 import { prisma } from '../../services/postgres'
 import crypto from "crypto-js";
 
