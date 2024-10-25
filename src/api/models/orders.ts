@@ -68,7 +68,7 @@ export const updateOrder = async (
   const originalOrder = await getOrders({ id: params.id })
   const encryptedOrderInfo = {
     ...originalOrder,
-    ...encryptOrder(updateOrder),
+    ...encryptOrder(updatedOrder),
   }[0]
 
   // Store order
