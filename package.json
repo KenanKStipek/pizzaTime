@@ -2,7 +2,6 @@
   "name": "pizzatime",
   "version": "1.0.0",
   "main": "index.js",
-  "type": "module",
   "scripts": {
     "api": "tsx src/api/main",
     "build": "tsc",
